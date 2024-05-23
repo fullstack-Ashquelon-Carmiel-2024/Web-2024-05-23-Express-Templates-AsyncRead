@@ -20,6 +20,9 @@ CHALLENGEs are OPTIONAL
       - "Memory Game" - see the beginning files and 
           the example of how to flip card inside 
           the "projects/optional/memory-game" dir
+      - "Math Trainer" - math exercises inside clouds 
+          or drops or smth that move from top to bottom
+          or from side to side
 
 
 1. Continue NodeJS practice "laptop-store" -

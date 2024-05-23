@@ -628,7 +628,130 @@ we put %*IMAGE*%
   </body>
 </html>
 
-25. Read the template inside farm.js:
+25. Read the template inside farm.js and replace the string of %*PRODUCTNAME*%:
+
+const express = require('express');
+const fs = require('fs');
+
+let port = 3051;
+
+let dataJSON = fs.readFileSync('./data/data.json','utf-8');
+const dataAr = JSON.parse(dataJSON);
+
+let productTempl = fs.readFileSync('./templates/productTempl.html','utf-8');
+console.log(productTempl)
+
+// Create the server of express.
+// Traditionally we call it "app".
+const app = express();
+
+app.get('/',(req,res) => {
+
+    res.send(`<h1>Sweet, Sweet Home of EXPRESS Server😀</h1>`)
+
+})
+
+app.get('/product',(req,res) => {
+
+    res.send(`<h1>Our farm has the best meat 🥩</h1>`)
+
+})
+
+// MISSION: create route to get /data and to send
+//    the whole dataJSON
+
+app.get('/data',(req,res) => {
+
+    res.send(dataJSON);
+
+})
+
+app.get('/carrot',(req,res) => {
+
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[3].productName));
+
+})
+
+app.listen(port,() => {
+
+    console.log(`Listening on the port ${port} ...`)
+
+})
+
+26. And chain it:
+
+app.get('/carrot',(req,res) => {
+
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[3].productName)
+                         .replaceAll('%*IMAGE*%',dataAr[3].image));
+
+})
+
+27. Copy the routing for the carrot:
+
+app.get('/product/:id',(req,res) => {
+
+    console.log('req.params:\n',req.params)
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[3].productName)
+                         .replaceAll('%*IMAGE*%',dataAr[3].image));
+
+})
+
+28. // This is an example for 2 parameters
+app.get('/product/:id/:color',(req,res) => {
+
+    console.log('req.params:\n',req.params)
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[3].productName)
+                         .replaceAll('%*IMAGE*%',dataAr[3].image));
+
+})
+
+29. Convert /product route to general:
+
+app.get('/product/:id',(req,res) => {
+
+    console.log('req.params:\n',req.params)
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[req.params.id].productName)
+                         .replaceAll('%*IMAGE*%',dataAr[req.params.id].image));
+
+})
+
+30. Create farm/modules/replace-templ.js:
+
+/** obj
+ * {
+    "id": 1,
+    "productName": "Goat and Sheep Cheese",
+    "image": "🧀",
+    "from": "Portugal",
+    "nutrients": "Vitamin A, Calcium",
+    "quantity": "250g",
+    "price": "5.00",
+    "organic": false,
+    "description": "Creamy and distinct in flavor, goat cheese is a dairy product enjoyed around the world. Goat cheese comes in a wide variety of flavors and textures, from soft and spreadable fresh cheese to salty, crumbly aged cheese. Although it’s made using the same coagulation and separation process as cheese made from cow’s milk, goat cheese differs in nutrient content."
+  }
+ */
+
+module.exports = function(templ, obj) {
+
+    return templ.replaceAll('%*PRODUCTNAME*%',obj.productName)
+                .replaceAll('%*IMAGE*%',obj.image);
+
+}
+
+31. Import the module to farm.js:
+
+const express = require('express');
+const fs = require('fs');
+
+const replaceTempl = require('./modules/replace-templ');
+
+32. 
 
 
 
