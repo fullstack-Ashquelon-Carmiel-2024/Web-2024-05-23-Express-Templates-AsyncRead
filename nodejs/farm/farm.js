@@ -5,10 +5,9 @@ let port = 3051;
 
 let dataJSON = fs.readFileSync('./data/data.json','utf-8');
 const dataAr = JSON.parse(dataJSON);
-console.log('***********************')
-console.log(`dataAr[3].image=${dataAr[3].image}`)
-console.log(`dataAr[3].productName=${dataAr[3].productName}`)
-console.log('***********************')
+
+let productTempl = fs.readFileSync('./templates/productTempl.html','utf-8');
+console.log(productTempl)
 
 // Create the server of express.
 // Traditionally we call it "app".
@@ -37,7 +36,8 @@ app.get('/data',(req,res) => {
 
 app.get('/carrot',(req,res) => {
 
-    res.send(dataAr[3]);
+    //res.send(dataAr[3]);
+    res.send(productTempl.replaceAll('%*PRODUCTNAME*%',dataAr[3].productName));
 
 })
 
