@@ -8,22 +8,22 @@ Mode1: stupid machine - all the turns are random.
    HTML:
         RULES
 
-        THE PLAYER choses who starts the game
+        THE PLAYER choses who starts the game(<input type="radio"> or <select>)
 
-        OPTION to choose MAX number - should be ROUND!!!
-
-       DIV which shows who's turn and what is the SUM 
-            after it
-
-        BUTTON for human to make a turn
-
-        Machine should "thiiiiink ...." 
+        OPTION to choose MAX number - should be ROUND!!! (<input type='number'>)
 
         BUTTON "Start GAME" - should be locked 
           during the game, and active when the game 
           ends
 
         INPUT - for the human turn
+
+        DIV which shows who's turn and what is the SUM 
+            after it
+
+        BUTTON for human to make a turn
+
+        Machine should "thiiiiink ...." 
 
         VALIDATION
 
