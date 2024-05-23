@@ -4,6 +4,11 @@ const fs = require('fs');
 let port = 3051;
 
 let dataJSON = fs.readFileSync('./data/data.json','utf-8');
+const dataAr = JSON.parse(dataJSON);
+console.log('***********************')
+console.log(`dataAr[3].image=${dataAr[3].image}`)
+console.log(`dataAr[3].productName=${dataAr[3].productName}`)
+console.log('***********************')
 
 // Create the server of express.
 // Traditionally we call it "app".
@@ -27,6 +32,12 @@ app.get('/product',(req,res) => {
 app.get('/data',(req,res) => {
 
     res.send(dataJSON);
+
+})
+
+app.get('/carrot',(req,res) => {
+
+    res.send(dataAr[3]);
 
 })
 

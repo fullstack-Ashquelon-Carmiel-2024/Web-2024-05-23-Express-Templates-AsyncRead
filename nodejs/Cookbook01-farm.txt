@@ -213,4 +213,95 @@ app.listen(port,() => {
 Ctrl-C
 $ node farm.js
 
-17.
+17. When we want to start the server after that 
+   "node_modules" were deleted:
+
+   $ npm install
+   or
+   $ npm i
+
+18. Show that JSON is a text and not an array:
+
+farm.js:
+
+const express = require('express');
+const fs = require('fs');
+
+let port = 3051;
+
+let dataJSON = fs.readFileSync('./data/data.json','utf-8');
+console.log('***********************')
+console.log(`dataJSON[0]=${dataJSON[0]}`)
+console.log(`dataJSON[3]=${dataJSON[3]}`)
+console.log(`dataJSON[4]=${dataJSON[4]}`)
+console.log(`dataJSON[5]=${dataJSON[5]}`)
+console.log('***********************')
+
+19. Install for development globally nodemon package:
+
+$ npm -d -g i nodemon
+// npm - node package manager
+// -d - for Development (not a dependancy)
+//     nothing is added to the dependencies 
+//     in package.json
+// -g - globally (for the future projects too)
+// i - install 
+// nodemon - package for tracking changes
+//      in some types of files and automatic
+//      restart of the server
+
+20. To run the server now:
+
+$ nodemon farm.js
+
+to restart it we could write
+rs + 'Enter'
+
+21. Now parse dataJSON into array dataAr
+and show that now it is an array of objects.
+
+With index 3 it is an object of carrot.
+
+farm.js:
+
+const express = require('express');
+const fs = require('fs');
+
+let port = 3051;
+
+let dataJSON = fs.readFileSync('./data/data.json','utf-8');
+const dataAr = JSON.parse(dataJSON);
+console.log('***********************')
+console.log(`dataAr[3]=${dataAr[3]}`)
+console.log('***********************')
+
+...........................
+...........................
+...........................
+
+app.get('/data',(req,res) => {
+
+    res.send(dataJSON);
+
+})
+
+app.get('/carrot',(req,res) => {
+
+    res.send(dataAr[3]);
+
+})
+
+22. To see the properties of one object,
+in farm.js:
+
+let dataJSON = fs.readFileSync('./data/data.json','utf-8');
+const dataAr = JSON.parse(dataJSON);
+console.log('***********************')
+console.log(`dataAr[3].image=${dataAr[3].image}`)
+console.log(`dataAr[3].productName=${dataAr[3].productName}`)
+console.log('***********************')
+
+23. Make dir farm/templates and move there 
+   overview.html and product.html
+
+   

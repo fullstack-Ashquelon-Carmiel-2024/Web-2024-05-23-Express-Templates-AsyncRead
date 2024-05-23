@@ -127,6 +127,14 @@ $ git push -u origin main
 
 --- AFTER CHANGES WERE PERFORMED
 
+$ git add *
+// add all the changes to the STAGE
+
+$ git commit -m"shell.txt changed"
+// commit all the changes 
+
+$ git push 
+// bring all the changes to the remote repository
 
 
 
